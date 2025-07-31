@@ -1,76 +1,26 @@
 package dev.jlaguna.kmpballz
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import dev.jlaguna.kmpballz.data.remote.CharacterService
-import dev.jlaguna.kmpballz.ui.scenes.home.HomeScreen
-import dev.jlaguna.kmpballz.ui.scenes.home.HomeViewModel
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.DefaultRequest
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.http.URLProtocol
-import io.ktor.serialization.kotlinx.json.json
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.runtime.Composable
+import coil3.ImageLoader
+import coil3.annotation.ExperimentalCoilApi
+import coil3.compose.setSingletonImageLoaderFactory
+import coil3.request.crossfade
+import coil3.util.DebugLogger
+import dev.jlaguna.kmpballz.ui.scenes.Navigation
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import kmpballz.composeapp.generated.resources.Res
-import kmpballz.composeapp.generated.resources.compose_multiplatform
-import kotlinx.serialization.json.Json
-
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 @Preview
 fun App() {
-    val client = HttpClient {
-        install(ContentNegotiation) {
-            json(Json {
-                ignoreUnknownKeys = true
-            })
-        }
+    initKoin { }
 
-        install(DefaultRequest) {
-            url {
-                protocol = URLProtocol.HTTPS
-                host = "dragonball-api.com/api"
-                //parameters.append("api_key", BuildConfig.API_KEY)
-            }
-        }
+    setSingletonImageLoaderFactory { context ->
+        ImageLoader.Builder(context)
+            .crossfade(true)
+            .logger(DebugLogger())
+            .build()
     }
-    val service = CharacterService(client)
-    val homeViewModel = HomeViewModel(service)
-    HomeScreen(homeViewModel)
-//    MaterialTheme {
-//        var showContent by remember { mutableStateOf(false) }
-//        Column(
-//            modifier = Modifier
-//                .background(MaterialTheme.colorScheme.primaryContainer)
-//                .safeContentPadding()
-//                .fillMaxSize(),
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//        ) {
-//            Button(onClick = { showContent = !showContent }) {
-//                Text("Click me!")
-//            }
-//            AnimatedVisibility(showContent) {
-//                val greeting = remember { Greeting().greet() }
-//                Column(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    horizontalAlignment = Alignment.CenterHorizontally,
-//                ) {
-//                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-//                    Text("Compose: $greeting")
-//                }
-//            }
-//        }
-//    }
+
+    Navigation()
 }
