@@ -7,6 +7,9 @@
     <string name="retry">Retry</string>
     <string name="back">Back</string>
 
-    <!-- Characters -->
+    <!-- Characters List -->
     <string name="charactersList_title">Characters</string>
+
+    <!-- Character Detail-->
+    <string name="characterDetail_title">Detail</string>
 </resources>

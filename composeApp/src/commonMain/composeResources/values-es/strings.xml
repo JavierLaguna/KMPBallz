@@ -7,7 +7,10 @@
     <string name="retry">Reintentar</string>
     <string name="back">Atrás</string>
 
-    <!-- Characters -->
+    <!-- Characters List -->
     <string name="charactersList_title">Personajes</string>
+
+    <!-- Character Detail-->
+    <string name="characterDetail_title">Detalle</string>
 
 </resources>
