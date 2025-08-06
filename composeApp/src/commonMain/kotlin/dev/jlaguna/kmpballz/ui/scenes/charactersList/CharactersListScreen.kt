@@ -30,6 +30,9 @@ import coil3.compose.AsyncImage
 import dev.jlaguna.kmpballz.data.models.Character
 import dev.jlaguna.kmpballz.ui.components.LoadingIndicator
 import dev.jlaguna.kmpballz.ui.components.Screen
+import kmpballz.composeapp.generated.resources.Res
+import kmpballz.composeapp.generated.resources.app_name
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -51,7 +54,7 @@ fun CharactersListScreen(
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("TOP title") },
+                    title = { Text(stringResource(Res.string.app_name)) },
                     scrollBehavior = scrollBehavior
                 )
             },
@@ -64,7 +67,7 @@ fun CharactersListScreen(
             )
 
             LazyVerticalGrid(
-                columns = GridCells.Adaptive(120.dp),
+                columns = GridCells.Adaptive(180.dp),
                 contentPadding = PaddingValues(4.dp),
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -89,12 +92,13 @@ private fun CharacterItem(character: Character, onClick: () -> Unit) {
         AsyncImage(
             model = character.image,
             contentDescription = character.name,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.Inside,
             modifier = Modifier
                 .fillMaxSize()
                 .aspectRatio(2 / 3f)
                 .clip(MaterialTheme.shapes.small)
                 .background(MaterialTheme.colorScheme.primary)
+                .padding(4.dp)
         )
 
         Text(

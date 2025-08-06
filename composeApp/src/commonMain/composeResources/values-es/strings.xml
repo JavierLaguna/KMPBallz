@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App general -->
+    <string name="app_name">KMP Ballz</string>
+    <string name="loading">Cargando...</string>
+    <string name="error">Error</string>
+    <string name="retry">Reintentar</string>
+    <string name="back">Atrás</string>
+
+    <!-- Characters -->
+    <string name="charactersList_title">Personajes</string>
+
+</resources>

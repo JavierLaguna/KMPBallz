@@ -2,6 +2,7 @@ package dev.jlaguna.kmpballz
 
 import dev.jlaguna.kmpballz.data.remote.CharacterService
 import dev.jlaguna.kmpballz.data.repositories.CharactersRepository
+import dev.jlaguna.kmpballz.ui.scenes.characterDetail.CharacterDetailViewModel
 import dev.jlaguna.kmpballz.ui.scenes.charactersList.CharactersListViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.DefaultRequest
@@ -46,4 +47,5 @@ val dataModule = module {
 
 val viewModelsModule = module {
     factoryOf(::CharactersListViewModel)
+    factoryOf(::CharacterDetailViewModel)
 }

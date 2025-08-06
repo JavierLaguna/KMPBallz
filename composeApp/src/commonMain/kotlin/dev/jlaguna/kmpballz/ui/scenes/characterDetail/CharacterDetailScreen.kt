@@ -1,23 +1,27 @@
 package dev.jlaguna.kmpballz.ui.scenes.characterDetail
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
+import dev.jlaguna.kmpballz.data.models.Character
 import dev.jlaguna.kmpballz.ui.components.LoadingIndicator
 import dev.jlaguna.kmpballz.ui.components.Screen
-import kmpballz.composeapp.generated.resources.Res
-import org.jetbrains.compose.resources.stringResource
-import androidx.compose.material.icons.Icons
+import dev.jlaguna.kmpballz.ui.components.BackTopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,7 +35,7 @@ fun CharacterDetailScreen(
     Screen {
         Scaffold(
             topBar = {
-                DetailTopBar(
+                BackTopBar(
                     title = state.character?.name ?: "",
                     scrollBehavior = scrollBehavior,
                     onBack = onBack
@@ -44,29 +48,44 @@ fun CharacterDetailScreen(
             )
 
             state.character?.let { character ->
-                Text(character.name)
+                CharacterDetail(
+                    character,
+                    modifier = Modifier.padding(padding)
+                )
             }
         }
     }
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
-private fun DetailTopBar(
-    title: String,
-    onBack: () -> Unit,
-    scrollBehavior: TopAppBarScrollBehavior
+private fun CharacterDetail(
+    character: Character,
+    modifier: Modifier = Modifier
 ) {
-    TopAppBar(
-        title = { Text(text = title) },
-        navigationIcon = {
-            IconButton(onClick = onBack) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                    contentDescription = stringResource(Res.string.back)
-                )
+    Column(
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+    ) {
+        Row(
+            Modifier.padding(horizontal = 24.dp)
+        ) {
+            AsyncImage(
+                model = character.image,
+                contentDescription = character.name,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .height(300.dp)
+            )
+
+            Column(
+                Modifier.padding(horizontal = 8.dp)
+            ) {
+                Text(character.ki)
+                Text(character.maxKi)
             }
-        },
-        scrollBehavior = scrollBehavior
-    )
+        }
+
+        Text(text = character.description, modifier = Modifier.padding(16.dp))
+    }
 }
