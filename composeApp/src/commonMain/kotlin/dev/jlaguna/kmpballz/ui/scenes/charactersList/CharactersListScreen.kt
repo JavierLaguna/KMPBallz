@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import dev.jlaguna.kmpballz.data.models.Character
+import dev.jlaguna.kmpballz.ui.UIState
 import dev.jlaguna.kmpballz.ui.components.LoadingIndicator
 import dev.jlaguna.kmpballz.ui.components.Screen
 import dev.jlaguna.kmpballz.utils.extractColorFromImageUrl
@@ -59,7 +60,7 @@ fun CharactersListScreen(
     val charactersState by viewModel.characters.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.onUiReady()
+        viewModel.handleEvent(CharactersListContract.Event.OnLoadView)
     }
 
     Screen {
@@ -78,7 +79,7 @@ fun CharactersListScreen(
         ) { padding ->
 
             LoadingIndicator(
-                enabled = charactersState.isLoading && (charactersState.data?.isEmpty() ?: true),
+                enabled = charactersState.state == UIState.State.LOADING && (charactersState.data?.isEmpty() ?: true),
                 modifier = Modifier.padding(padding)
             )
 
@@ -102,9 +103,8 @@ fun CharactersListScreen(
                     item(
                         span = { GridItemSpan(2) }
                     ) {
-                        // Invisible item that triggers loading when it becomes visible
                         LaunchedEffect(Unit) {
-                            viewModel.loadMoreCharacters()
+                            viewModel.handleEvent(CharactersListContract.Event.OnEndScroll)
                         }
                         Spacer(modifier = Modifier.height(1.dp))
                     }

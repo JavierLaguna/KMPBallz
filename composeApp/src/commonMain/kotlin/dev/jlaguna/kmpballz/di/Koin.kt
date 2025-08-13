@@ -1,5 +1,7 @@
-package dev.jlaguna.kmpballz.utils
+package dev.jlaguna.kmpballz.di
 
+import dev.jlaguna.kmpballz.business.useCases.GetCharactersUseCase
+import dev.jlaguna.kmpballz.business.useCases.GetCharactersUseCaseDefault
 import dev.jlaguna.kmpballz.data.remote.CharacterService
 import dev.jlaguna.kmpballz.data.repositories.CharactersRepository
 import dev.jlaguna.kmpballz.ui.scenes.characterDetail.CharacterDetailViewModel
@@ -18,7 +20,7 @@ import org.koin.dsl.module
 fun initKoin(config: KoinAppDeclaration? = null) {
     startKoin {
         config?.invoke(this)
-        modules(dataModule, viewModelsModule)
+        modules(dataModule, useCasesModule, viewModelsModule)
     }
 }
 
@@ -43,6 +45,10 @@ val dataModule = module {
     factoryOf(::CharacterService)
 
     factoryOf(::CharactersRepository)
+}
+
+val useCasesModule = module {
+    factory<GetCharactersUseCase> { GetCharactersUseCaseDefault(get()) }
 }
 
 val viewModelsModule = module {
