@@ -40,8 +40,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import dev.jlaguna.kmpballz.data.models.Character
+import dev.jlaguna.kmpballz.business.useCases.models.Character
 import dev.jlaguna.kmpballz.ui.UIState
+import dev.jlaguna.kmpballz.ui.components.ErrorView
 import dev.jlaguna.kmpballz.ui.components.LoadingIndicator
 import dev.jlaguna.kmpballz.ui.components.Screen
 import dev.jlaguna.kmpballz.utils.extractColorFromImageUrl
@@ -78,8 +79,14 @@ fun CharactersListScreen(
                 .background(Color(0xFF211712))
         ) { padding ->
 
+            if (charactersState.state == UIState.State.ERROR) {
+            ErrorView(onRetryClick = {
+                // TODO:
+            })
+        } else {
+
             LoadingIndicator(
-                enabled = charactersState.state == UIState.State.LOADING && (charactersState.data?.isEmpty() ?: true),
+                enabled = charactersState.isLoading && !charactersState.isEmpty,
                 modifier = Modifier.padding(padding)
             )
 
@@ -110,6 +117,7 @@ fun CharactersListScreen(
                     }
                 }
             }
+        }
         }
     }
 }

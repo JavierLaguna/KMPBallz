@@ -28,6 +28,6 @@ data class UIState<T>(
 
     fun setEmpty(): UIState<T> = UIState(State.EMPTY, null, null)
 
-    fun setError(error: Error): UIState<T> = UIState(State.ERROR, null, error)
+    fun setError(): UIState<T> = UIState(State.ERROR, null, error)
 }
 

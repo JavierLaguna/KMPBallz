@@ -1,6 +1,6 @@
 package dev.jlaguna.kmpballz.business.useCases
 
-import dev.jlaguna.kmpballz.data.models.Character
+import dev.jlaguna.kmpballz.business.useCases.models.Character
 import dev.jlaguna.kmpballz.data.repositories.CharactersRepository
 import org.koin.core.component.KoinComponent
 

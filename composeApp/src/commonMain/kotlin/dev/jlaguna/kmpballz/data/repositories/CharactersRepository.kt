@@ -1,6 +1,6 @@
 package dev.jlaguna.kmpballz.data.repositories
 
-import dev.jlaguna.kmpballz.data.models.Character
+import dev.jlaguna.kmpballz.business.useCases.models.Character
 import dev.jlaguna.kmpballz.data.remote.CharacterService
 import dev.jlaguna.kmpballz.data.remote.responses.CharacterResponse
 

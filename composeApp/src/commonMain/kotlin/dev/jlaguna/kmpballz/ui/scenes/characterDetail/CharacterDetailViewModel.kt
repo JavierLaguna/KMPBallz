@@ -2,7 +2,7 @@ package dev.jlaguna.kmpballz.ui.scenes.characterDetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.jlaguna.kmpballz.data.models.Character
+import dev.jlaguna.kmpballz.business.useCases.models.Character
 import dev.jlaguna.kmpballz.data.repositories.CharactersRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

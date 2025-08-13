@@ -1,4 +1,4 @@
-package dev.jlaguna.kmpballz.data.models
+package dev.jlaguna.kmpballz.business.useCases.models
 
 data class Character(
     val id: Int,

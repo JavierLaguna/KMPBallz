@@ -3,7 +3,7 @@ package dev.jlaguna.kmpballz.ui.scenes.charactersList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.jlaguna.kmpballz.business.useCases.GetCharactersUseCase
-import dev.jlaguna.kmpballz.data.models.Character
+import dev.jlaguna.kmpballz.business.useCases.models.Character
 import dev.jlaguna.kmpballz.ui.UIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -26,16 +26,17 @@ class CharactersListViewModel: ViewModel(), KoinComponent {
     }
 
     private fun getCharacters() {
-        viewModelScope.launch {
-            val currentCharacters = characters.value.data ?: emptyList()
-            characters.value = characters.value.setLoading()
-            val newCharacters = getCharactersUseCase.getCharacters()
-
-            if (newCharacters.isNotEmpty()) {
-                val updatedCharacters = currentCharacters + newCharacters
-                characters.value = characters.value.setPopulated(updatedCharacters)
-            }
-        }
+        characters.value = characters.value.setError()
+//        viewModelScope.launch {
+//            val currentCharacters = characters.value.data ?: emptyList()
+//            characters.value = characters.value.setLoading()
+//            val newCharacters = getCharactersUseCase.getCharacters()
+//
+//            if (newCharacters.isNotEmpty()) {
+//                val updatedCharacters = currentCharacters + newCharacters
+//                characters.value = characters.value.setPopulated(updatedCharacters)
+//            }
+//        }
     }
 
     private fun loadMoreCharacters() {

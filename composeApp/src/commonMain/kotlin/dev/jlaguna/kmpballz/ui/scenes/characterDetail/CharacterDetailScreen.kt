@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import dev.jlaguna.kmpballz.data.models.Character
+import dev.jlaguna.kmpballz.business.useCases.models.Character
 import dev.jlaguna.kmpballz.ui.components.LoadingIndicator
 import dev.jlaguna.kmpballz.ui.components.Screen
 import dev.jlaguna.kmpballz.ui.components.BackTopBar
