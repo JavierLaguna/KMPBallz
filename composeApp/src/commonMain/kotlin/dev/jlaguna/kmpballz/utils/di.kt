@@ -1,4 +1,4 @@
-package dev.jlaguna.kmpballz
+package dev.jlaguna.kmpballz.utils
 
 import dev.jlaguna.kmpballz.data.remote.CharacterService
 import dev.jlaguna.kmpballz.data.repositories.CharactersRepository

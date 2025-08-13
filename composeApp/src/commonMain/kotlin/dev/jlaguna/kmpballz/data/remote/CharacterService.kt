@@ -10,9 +10,9 @@ class CharacterService(
     private val client: HttpClient
 ) {
 
-    suspend fun fetchCharacters(): CharactersPageResponse {
+    suspend fun fetchCharacters(page: Int): CharactersPageResponse {
         return client
-            .get("/characters")
+            .get("/characters?page=$page")
             .body<CharactersPageResponse>()
     }
 

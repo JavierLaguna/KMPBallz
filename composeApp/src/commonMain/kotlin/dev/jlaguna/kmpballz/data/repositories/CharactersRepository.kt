@@ -8,8 +8,17 @@ class CharactersRepository(
     private val characterService: CharacterService
 ) {
 
+    private var page = 1
+    private var totalPages: Int? = null
+
     suspend fun fetchCharacters(): List<Character> {
-        val response = characterService.fetchCharacters()
+        if (totalPages != null && page > totalPages!!) {
+            return emptyList() // TODO: JLI Throw error
+        }
+
+        val response = characterService.fetchCharacters(page)
+        totalPages = response.meta.totalPages
+        page++
         return response.items.mapNotNull { it.toCharacter() }
     }
 

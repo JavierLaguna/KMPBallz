@@ -1,4 +1,4 @@
-package dev.jlaguna.kmpballz
+package dev.jlaguna.kmpballz.utils
 
 import coil3.ImageLoader
 import coil3.PlatformContext
