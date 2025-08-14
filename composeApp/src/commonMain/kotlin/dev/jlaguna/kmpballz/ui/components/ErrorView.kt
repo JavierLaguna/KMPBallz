@@ -23,12 +23,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kmpballz.composeapp.generated.resources.Muten_Roshi
 import kmpballz.composeapp.generated.resources.Res
+import kmpballz.composeapp.generated.resources.muten_roshi
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun ErrorView(
+    error: Exception? = null,
     onRetryClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
@@ -53,7 +54,7 @@ fun ErrorView(
             // Placeholder for the character image
             // In a real app, you would use AsyncImage or Image composable
             Image(
-                painter = painterResource(Res.drawable.Muten_Roshi),
+                painter = painterResource(Res.drawable.muten_roshi),
                 contentDescription = "Character illustration",
                 modifier = Modifier.size(300.dp),
                 contentScale = ContentScale.Fit
@@ -75,7 +76,7 @@ fun ErrorView(
 
         // Error Description
         Text(
-            text = "We couldn't load the characters. Please try again.",
+            text = error?.message ?: "We couldn't load the characters. Please try again.",
             fontSize = 16.sp,
             textAlign = TextAlign.Center,
             lineHeight = 22.sp,

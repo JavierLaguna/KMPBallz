@@ -3,7 +3,7 @@ package dev.jlaguna.kmpballz.ui
 data class UIState<T>(
     val state: State = State.INITIAL,
     val data: T? = null,
-    val error: Error? = null
+    val error: Exception? = null
 ) {
     enum class State {
         INITIAL,
@@ -28,6 +28,6 @@ data class UIState<T>(
 
     fun setEmpty(): UIState<T> = UIState(State.EMPTY, null, null)
 
-    fun setError(): UIState<T> = UIState(State.ERROR, null, error)
+    fun setError(error: Exception): UIState<T> = UIState(State.ERROR, null, error)
 }
 

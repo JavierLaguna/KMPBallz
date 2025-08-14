@@ -11,7 +11,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 
-class CharactersListViewModel: ViewModel(), KoinComponent {
+class CharactersListViewModel : ViewModel(), KoinComponent {
 
     private val getCharactersUseCase: GetCharactersUseCase by inject()
 
@@ -26,17 +26,23 @@ class CharactersListViewModel: ViewModel(), KoinComponent {
     }
 
     private fun getCharacters() {
-        characters.value = characters.value.setError()
-//        viewModelScope.launch {
-//            val currentCharacters = characters.value.data ?: emptyList()
-//            characters.value = characters.value.setLoading()
-//            val newCharacters = getCharactersUseCase.getCharacters()
-//
-//            if (newCharacters.isNotEmpty()) {
-//                val updatedCharacters = currentCharacters + newCharacters
-//                characters.value = characters.value.setPopulated(updatedCharacters)
-//            }
-//        }
+//        characters.value = characters.value.setError()
+
+        viewModelScope.launch {
+            val currentCharacters = characters.value.data ?: emptyList()
+            characters.value = characters.value.setLoading()
+
+            try {
+                val newCharacters = getCharactersUseCase.getCharacters()
+
+                if (newCharacters.isNotEmpty()) {
+                    val updatedCharacters = currentCharacters + newCharacters
+                    characters.value = characters.value.setPopulated(updatedCharacters)
+                }
+            } catch (e: Exception) {
+                characters.value = characters.value.setError(e)
+            }
+        }
     }
 
     private fun loadMoreCharacters() {

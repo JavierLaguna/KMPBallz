@@ -76,48 +76,48 @@ fun CharactersListScreen(
             },
             modifier = Modifier
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
-                .background(Color(0xFF211712))
         ) { padding ->
-
             if (charactersState.state == UIState.State.ERROR) {
-            ErrorView(onRetryClick = {
-                // TODO:
-            })
-        } else {
+                ErrorView(
+                    error = charactersState.error,
+                    onRetryClick = {
+                    // TODO:
+                })
 
-            LoadingIndicator(
-                enabled = charactersState.isLoading && !charactersState.isEmpty,
-                modifier = Modifier.padding(padding)
-            )
+            } else {
+                LoadingIndicator(
+                    enabled = charactersState.isLoading && !charactersState.isEmpty,
+                    modifier = Modifier.padding(padding)
+                )
 
-            charactersState.data?.let { characters ->
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(padding),
-                    contentPadding = PaddingValues(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    items(characters) { it ->
-                        CharacterCard(
-                            character = it,
-                            onClick = { onCharacterClick(it) }
-                        )
-                    }
-
-                    item(
-                        span = { GridItemSpan(2) }
+                charactersState.data?.let { characters ->
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(padding),
+                        contentPadding = PaddingValues(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        LaunchedEffect(Unit) {
-                            viewModel.handleEvent(CharactersListContract.Event.OnEndScroll)
+                        items(characters) { it ->
+                            CharacterCard(
+                                character = it,
+                                onClick = { onCharacterClick(it) }
+                            )
                         }
-                        Spacer(modifier = Modifier.height(1.dp))
+
+                        item(
+                            span = { GridItemSpan(2) }
+                        ) {
+                            LaunchedEffect(Unit) {
+                                viewModel.handleEvent(CharactersListContract.Event.OnEndScroll)
+                            }
+                            Spacer(modifier = Modifier.height(1.dp))
+                        }
                     }
                 }
             }
-        }
         }
     }
 }

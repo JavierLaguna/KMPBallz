@@ -42,10 +42,11 @@ fun CharacterDetailScreen(
                 )
             }
         ) { padding ->
-            LoadingIndicator(
-                enabled = state.isLoading,
-                modifier = Modifier.padding(padding)
-            )
+            // TODO: JLI - Fix
+//            LoadingIndicator(
+//                enabled = state.isLoading,
+//                modifier = Modifier.padding(padding)
+//            )
 
             state.character?.let { character ->
                 CharacterDetail(
