@@ -12,7 +12,7 @@ class CharacterService(
 
     suspend fun fetchCharacters(page: Int): CharactersPageResponse {
         return client
-            .get("/charactersASD?page=$page")
+            .get("/characters?page=$page")
             .body<CharactersPageResponse>()
     }
 

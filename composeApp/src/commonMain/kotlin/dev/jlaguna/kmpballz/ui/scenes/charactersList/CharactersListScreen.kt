@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import dev.jlaguna.kmpballz.business.useCases.models.Character
+import dev.jlaguna.kmpballz.business.models.Character
 import dev.jlaguna.kmpballz.ui.UIState
 import dev.jlaguna.kmpballz.ui.components.ErrorView
 import dev.jlaguna.kmpballz.ui.components.LoadingIndicator
@@ -81,7 +81,7 @@ fun CharactersListScreen(
                 ErrorView(
                     error = charactersState.error,
                     onRetryClick = {
-                    // TODO:
+                        viewModel.handleEvent(CharactersListContract.Event.OnPressRetry)
                 })
 
             } else {
@@ -190,9 +190,8 @@ private fun CharacterImage(
     AsyncImage(
         model = imageUrl,
         contentDescription = characterName,
-        modifier = modifier
-            .fillMaxSize()
-            .padding(8.dp),
-        contentScale = ContentScale.Fit
+        modifier = modifier.fillMaxSize(),
+        contentScale = ContentScale.Crop,
+        alignment = Alignment.TopCenter
     )
 }

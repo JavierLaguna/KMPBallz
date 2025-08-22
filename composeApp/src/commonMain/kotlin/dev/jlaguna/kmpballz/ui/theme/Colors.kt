@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 val DragonBallOrange = Color(0xFFf0833a)
 val WhitePrimary = Color(0xFFFCFAF7)
 val BlackPrimary = Color(0xFF1C120D)
+val SecondaryBackground = Color(0xFF2D2D2D)
 
 // Light Theme Colors
 val DarkOrangePrimary = Color(0xFF211712)
@@ -22,7 +23,10 @@ internal val LightColorScheme = lightColorScheme(
     surface = WhitePrimary,
     onSurface = LightTextColor,
     secondary = Color.Green,
-    onSecondary = LightTextColor
+    onSecondary = LightTextColor,
+    onPrimary = DarkTextColor,
+    onPrimaryContainer = Color.Blue,
+    onSecondaryContainer = SecondaryBackground,
 )
 
 internal val DarkColorScheme = darkColorScheme(
@@ -32,5 +36,8 @@ internal val DarkColorScheme = darkColorScheme(
     surface = DarkOrangePrimary,
     onSurface = DragonBallOrange,
     secondary = Color.Yellow,
-    onSecondary = DarkTextColor
+    onSecondary = DarkTextColor,
+    onPrimary = DarkTextColor,
+    onPrimaryContainer = Color.Blue,
+    onSecondaryContainer = SecondaryBackground,
 )

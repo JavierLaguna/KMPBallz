@@ -3,7 +3,7 @@ package dev.jlaguna.kmpballz.ui.scenes.charactersList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.jlaguna.kmpballz.business.useCases.GetCharactersUseCase
-import dev.jlaguna.kmpballz.business.useCases.models.Character
+import dev.jlaguna.kmpballz.business.models.Character
 import dev.jlaguna.kmpballz.ui.UIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -22,12 +22,11 @@ class CharactersListViewModel : ViewModel(), KoinComponent {
         when (event) {
             is CharactersListContract.Event.OnLoadView -> getCharacters()
             is CharactersListContract.Event.OnEndScroll -> loadMoreCharacters()
+            is CharactersListContract.Event.OnPressRetry -> getCharacters()
         }
     }
 
     private fun getCharacters() {
-//        characters.value = characters.value.setError()
-
         viewModelScope.launch {
             val currentCharacters = characters.value.data ?: emptyList()
             characters.value = characters.value.setLoading()

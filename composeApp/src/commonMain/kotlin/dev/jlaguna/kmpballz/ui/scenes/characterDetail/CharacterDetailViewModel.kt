@@ -2,7 +2,7 @@ package dev.jlaguna.kmpballz.ui.scenes.characterDetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.jlaguna.kmpballz.business.useCases.models.Character
+import dev.jlaguna.kmpballz.business.models.Character
 import dev.jlaguna.kmpballz.data.repositories.CharactersRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -10,7 +10,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class CharacterDetailViewModel(
-    private val characterId: Int
+    private val character: Character
 ) : ViewModel(), KoinComponent {
 
     data class UiState(
@@ -24,10 +24,10 @@ class CharacterDetailViewModel(
         private set
 
     init {
-        viewModelScope.launch {
-            state.value = state.value.copy(isLoading = true)
-            val character = repository.fetchCharacterById(characterId)
-            state.value = UiState(false, character)
-        }
+//        viewModelScope.launch {
+//            state.value = state.value.copy(isLoading = true)
+//            val character = repository.fetchCharacterById(character.id)
+//            state.value = UiState(false, character)
+//        }
     }
 }

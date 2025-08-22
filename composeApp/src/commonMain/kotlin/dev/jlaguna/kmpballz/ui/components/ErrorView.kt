@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,8 +25,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kmpballz.composeapp.generated.resources.Res
+import kmpballz.composeapp.generated.resources.errorScreen_generalDescription
+import kmpballz.composeapp.generated.resources.errorScreen_title
 import kmpballz.composeapp.generated.resources.muten_roshi
+import kmpballz.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ErrorView(
@@ -40,22 +45,19 @@ fun ErrorView(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Character Image Container
         Box(
             modifier = Modifier
                 .size(400.dp)
                 .background(
-                    color = Color(0xFF2D2D2D),
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
                     shape = RoundedCornerShape(16.dp)
                 )
                 .padding(24.dp),
             contentAlignment = Alignment.Center
         ) {
-            // Placeholder for the character image
-            // In a real app, you would use AsyncImage or Image composable
             Image(
                 painter = painterResource(Res.drawable.muten_roshi),
-                contentDescription = "Character illustration",
+                contentDescription = "error illustration",
                 modifier = Modifier.size(300.dp),
                 contentScale = ContentScale.Fit
             )
@@ -63,9 +65,8 @@ fun ErrorView(
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        // Error Title
         Text(
-            text = "Oops! Something went wrong.",
+            text = stringResource(Res.string.errorScreen_title),
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
@@ -74,9 +75,8 @@ fun ErrorView(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Error Description
         Text(
-            text = error?.message ?: "We couldn't load the characters. Please try again.",
+            text = error?.message ?: stringResource(Res.string.errorScreen_generalDescription),
             fontSize = 16.sp,
             textAlign = TextAlign.Center,
             lineHeight = 22.sp,
@@ -85,7 +85,6 @@ fun ErrorView(
 
         Spacer(modifier = Modifier.height(48.dp))
 
-        // Retry Button
         Button(
             onClick = onRetryClick,
             modifier = Modifier
@@ -94,7 +93,7 @@ fun ErrorView(
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                text = "Retry",
+                text = stringResource(Res.string.retry),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold
             )

@@ -1,5 +1,8 @@
-package dev.jlaguna.kmpballz.business.useCases.models
+package dev.jlaguna.kmpballz.business.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Character(
     val id: Int,
     val name: String,

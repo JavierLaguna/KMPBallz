@@ -7,6 +7,10 @@
     <string name="retry">Retry</string>
     <string name="back">Back</string>
 
+    <!-- Error Screen -->
+    <string name="errorScreen_title">Oops! Something went wrong.</string>
+    <string name="errorScreen_generalDescription">We couldn't load. Please try again.</string>
+
     <!-- Characters List -->
     <string name="charactersList_title">Characters</string>
 

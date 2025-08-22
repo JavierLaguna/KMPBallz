@@ -7,6 +7,11 @@
     <string name="retry">Reintentar</string>
     <string name="back">Atrás</string>
 
+    <!-- Error Screen -->
+    <string name="errorScreen_title">Ups! Ha ocurrido un error.</string>
+    <string name="errorScreen_generalDescription">Algo ha fallado. Por favor, inténtalo de nuevo.</string>
+
+
     <!-- Characters List -->
     <string name="charactersList_title">Personajes</string>
 

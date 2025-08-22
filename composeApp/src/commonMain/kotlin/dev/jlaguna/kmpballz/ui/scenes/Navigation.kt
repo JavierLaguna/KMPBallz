@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import dev.jlaguna.kmpballz.business.models.Character
 import dev.jlaguna.kmpballz.ui.scenes.characterDetail.CharacterDetailScreen
 import dev.jlaguna.kmpballz.ui.scenes.charactersList.CharactersListScreen
 import kotlinx.serialization.Serializable
@@ -17,7 +18,7 @@ private object Routes {
     object CharactersList
 
     @Serializable
-    data class CharacterDetail(val characterId: Int)
+    data class CharacterDetail(val character: Character)
 }
 
 @OptIn(KoinExperimentalAPI::class)
@@ -32,7 +33,7 @@ fun Navigation() {
         composable<Routes.CharactersList> {
             CharactersListScreen(
                 onCharacterClick = { character ->
-                    navController.navigate(Routes.CharacterDetail(characterId = character.id))
+                    navController.navigate(Routes.CharacterDetail(character = character))
                 }
             )
         }
@@ -40,7 +41,7 @@ fun Navigation() {
         composable<Routes.CharacterDetail> { backStackEntry ->
             val route = backStackEntry.toRoute<Routes.CharacterDetail>()
             CharacterDetailScreen(
-                vm = koinViewModel(parameters = { parametersOf(route.characterId) }),
+                vm = koinViewModel(parameters = { parametersOf(route.character) }),
                 onBack = { navController.popBackStack() }
             )
         }

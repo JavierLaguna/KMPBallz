@@ -7,5 +7,6 @@ interface CharactersListContract {
     sealed interface Event: UIEvent {
         data object OnLoadView: Event
         data object OnEndScroll: Event
+        data object OnPressRetry: Event
     }
 }
