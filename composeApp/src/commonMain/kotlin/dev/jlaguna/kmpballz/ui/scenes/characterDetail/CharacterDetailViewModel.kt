@@ -10,7 +10,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class CharacterDetailViewModel(
-    private val character: Character
+    private val characterId: Int
 ) : ViewModel(), KoinComponent {
 
     data class UiState(
@@ -24,10 +24,10 @@ class CharacterDetailViewModel(
         private set
 
     init {
-//        viewModelScope.launch {
-//            state.value = state.value.copy(isLoading = true)
-//            val character = repository.fetchCharacterById(character.id)
-//            state.value = UiState(false, character)
-//        }
+        viewModelScope.launch {
+            state.value = state.value.copy(isLoading = true)
+            val character = repository.fetchCharacterById(characterId)
+            state.value = UiState(false, character)
+        }
     }
 }
