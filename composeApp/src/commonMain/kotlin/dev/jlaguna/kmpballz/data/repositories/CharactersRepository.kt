@@ -1,8 +1,10 @@
 package dev.jlaguna.kmpballz.data.repositories
 
 import dev.jlaguna.kmpballz.business.models.Character
+import dev.jlaguna.kmpballz.business.models.CharacterTransformation
 import dev.jlaguna.kmpballz.data.remote.CharacterService
 import dev.jlaguna.kmpballz.data.remote.responses.CharacterResponse
+import dev.jlaguna.kmpballz.data.remote.responses.CharacterTransformationResponse
 
 class CharactersRepository(
     private val characterService: CharacterService
@@ -29,7 +31,7 @@ class CharactersRepository(
 
 }
 
-private fun CharacterResponse.toCharacter() = Character.Gender.fromDisplayName(gender)?.let {
+private fun CharacterResponse.toCharacter() = Character.Gender.fromDisplayName(gender)?.let { it ->
     Character(
         id,
         name,
@@ -39,6 +41,14 @@ private fun CharacterResponse.toCharacter() = Character.Gender.fromDisplayName(g
         it,
         description,
         image,
-        affiliation
+        affiliation,
+        transformations?.map { it.toCharacterTransformation() } ?: emptyList()
     )
 }
+
+private fun CharacterTransformationResponse.toCharacterTransformation() = CharacterTransformation(
+    id,
+    name,
+    image,
+    ki
+)

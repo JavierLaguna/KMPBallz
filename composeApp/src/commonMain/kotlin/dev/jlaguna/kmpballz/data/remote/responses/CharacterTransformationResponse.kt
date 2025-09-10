@@ -1,4 +1,11 @@
 package dev.jlaguna.kmpballz.data.remote.responses
 
-class CharacterTransformationResponse {
-}
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class CharacterTransformationResponse(
+    val id: Int,
+    val name: String,
+    val image: String,
+    val ki: String
+)

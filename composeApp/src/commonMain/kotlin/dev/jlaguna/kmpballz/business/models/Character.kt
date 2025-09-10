@@ -9,7 +9,8 @@ data class Character(
     val gender: Gender,
     val description: String,
     val image: String,
-    val affiliation: String
+    val affiliation: String,
+    val transformations: List<CharacterTransformation>,
 ) {
 
     enum class Race(val displayName: String) {

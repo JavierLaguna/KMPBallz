@@ -12,5 +12,6 @@ data class CharacterResponse(
     val gender: String,
     val description: String,
     val image: String,
-    val affiliation: String
+    val affiliation: String,
+    val transformations: List<CharacterTransformationResponse>? = null
 )
