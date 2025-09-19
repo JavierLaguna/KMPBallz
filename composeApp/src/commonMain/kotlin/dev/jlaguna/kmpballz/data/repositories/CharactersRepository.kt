@@ -2,9 +2,11 @@ package dev.jlaguna.kmpballz.data.repositories
 
 import dev.jlaguna.kmpballz.business.models.Character
 import dev.jlaguna.kmpballz.business.models.CharacterTransformation
+import dev.jlaguna.kmpballz.business.models.OriginPlanet
 import dev.jlaguna.kmpballz.data.remote.CharacterService
 import dev.jlaguna.kmpballz.data.remote.responses.CharacterResponse
 import dev.jlaguna.kmpballz.data.remote.responses.CharacterTransformationResponse
+import dev.jlaguna.kmpballz.data.remote.responses.OriginPlanetResponse
 
 class CharactersRepository(
     private val characterService: CharacterService
@@ -42,9 +44,18 @@ private fun CharacterResponse.toCharacter() = Character.Gender.fromDisplayName(g
         description,
         image,
         affiliation,
+        originPlanet?.toOriginPlanet(),
         transformations?.map { it.toCharacterTransformation() } ?: emptyList()
     )
 }
+
+private fun OriginPlanetResponse.toOriginPlanet() = OriginPlanet(
+    id,
+    name,
+    isDestroyed,
+    description,
+    image
+)
 
 private fun CharacterTransformationResponse.toCharacterTransformation() = CharacterTransformation(
     id,

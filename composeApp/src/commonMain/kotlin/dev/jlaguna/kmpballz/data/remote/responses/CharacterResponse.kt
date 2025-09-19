@@ -13,5 +13,6 @@ data class CharacterResponse(
     val description: String,
     val image: String,
     val affiliation: String,
+    val originPlanet: OriginPlanetResponse? = null,
     val transformations: List<CharacterTransformationResponse>? = null
 )

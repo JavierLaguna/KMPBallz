@@ -6,6 +6,9 @@
     <string name="error">Error</string>
     <string name="retry">Retry</string>
     <string name="back">Back</string>
+    <string name="unknown">Unknown</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
     <!-- Error Screen -->
     <string name="errorScreen_title">Oops! Something went wrong.</string>
@@ -16,4 +19,14 @@
 
     <!-- Character Detail-->
     <string name="characterDetail_title">Detail</string>
+    <string name="characterDetail_characterInformation_title">Character Information</string>
+    <string name="characterDetail_name">Name</string>
+    <string name="characterDetail_ki">Ki</string>
+    <string name="characterDetail_maxKi">Max Ki</string>
+    <string name="characterDetail_race">Race</string>
+    <string name="characterDetail_gender">Gender</string>
+    <string name="characterDetail_affiliation">Affiliation</string>
+    <string name="characterDetail_originPlanet">Planet of Origin</string>
+    <string name="characterDetail_description_title">Description</string>
+    <string name="characterDetail_transformations_title">Transformations</string>
 </resources>

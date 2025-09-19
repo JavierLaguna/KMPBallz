@@ -6,16 +6,27 @@
     <string name="error">Error</string>
     <string name="retry">Reintentar</string>
     <string name="back">Atrás</string>
+    <string name="unknown">Desconocido</string>
+    <string name="male">Hombre</string>
+    <string name="female">Mujer</string>
 
     <!-- Error Screen -->
     <string name="errorScreen_title">Ups! Ha ocurrido un error.</string>
     <string name="errorScreen_generalDescription">Algo ha fallado. Por favor, inténtalo de nuevo.</string>
-
 
     <!-- Characters List -->
     <string name="charactersList_title">Personajes</string>
 
     <!-- Character Detail-->
     <string name="characterDetail_title">Detalle</string>
-
+    <string name="characterDetail_characterInformation_title">Información del Personaje</string>
+    <string name="characterDetail_name">Nombre</string>
+    <string name="characterDetail_ki">Ki</string>
+    <string name="characterDetail_maxKi">Max Ki</string>
+    <string name="characterDetail_race">Raza</string>
+    <string name="characterDetail_gender">Género</string>
+    <string name="characterDetail_affiliation">Afiliación</string>
+    <string name="characterDetail_originPlanet">Planeta de Origen</string>
+    <string name="characterDetail_description_title">Descripción</string>
+    <string name="characterDetail_transformations_title">Transformaciones</string>
 </resources>

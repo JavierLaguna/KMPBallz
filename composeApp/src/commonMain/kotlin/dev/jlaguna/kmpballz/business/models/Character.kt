@@ -1,5 +1,11 @@
 package dev.jlaguna.kmpballz.business.models
 
+import androidx.compose.runtime.Composable
+import kmpballz.composeapp.generated.resources.Res
+import kmpballz.composeapp.generated.resources.female
+import kmpballz.composeapp.generated.resources.male
+import org.jetbrains.compose.resources.stringResource
+
 data class Character(
     val id: Int,
     val name: String,
@@ -10,6 +16,7 @@ data class Character(
     val description: String,
     val image: String,
     val affiliation: String,
+    val originPlanet: OriginPlanet?,
     val transformations: List<CharacterTransformation>,
 ) {
 
@@ -31,6 +38,12 @@ data class Character(
     enum class Gender(val displayName: String) {
         MALE("Male"),
         FEMALE("Female");
+
+        @Composable
+        fun localized(): String = when (this) {
+            MALE -> stringResource(Res.string.male)
+            FEMALE -> stringResource(Res.string.female)
+        }
 
         override fun toString(): String = displayName
 

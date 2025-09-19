@@ -44,6 +44,19 @@ import dev.jlaguna.kmpballz.ui.components.BackTopBar
 import dev.jlaguna.kmpballz.ui.components.CharacterCard
 import dev.jlaguna.kmpballz.ui.components.Screen
 import dev.jlaguna.kmpballz.utils.extractColorFromImageUrl
+import kmpballz.composeapp.generated.resources.Res
+import kmpballz.composeapp.generated.resources.characterDetail_affiliation
+import kmpballz.composeapp.generated.resources.characterDetail_characterInformation_title
+import kmpballz.composeapp.generated.resources.characterDetail_description_title
+import kmpballz.composeapp.generated.resources.characterDetail_gender
+import kmpballz.composeapp.generated.resources.characterDetail_ki
+import kmpballz.composeapp.generated.resources.characterDetail_maxKi
+import kmpballz.composeapp.generated.resources.characterDetail_name
+import kmpballz.composeapp.generated.resources.characterDetail_originPlanet
+import kmpballz.composeapp.generated.resources.characterDetail_race
+import kmpballz.composeapp.generated.resources.characterDetail_transformations_title
+import kmpballz.composeapp.generated.resources.unknown
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -82,6 +95,21 @@ fun CharacterDetailScreen(
     }
 }
 
+@Composable
+private fun SectionTitle(
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        fontSize = 24.sp,
+        fontWeight = FontWeight.SemiBold,
+        modifier = modifier
+            .fillMaxWidth(),
+        textAlign = TextAlign.Start
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CharacterDetail(
@@ -100,6 +128,8 @@ private fun CharacterDetail(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
+            Spacer(modifier = Modifier.height(16.dp))
+
             Box(
                 modifier = Modifier
                     .size(300.dp)
@@ -116,40 +146,78 @@ private fun CharacterDetail(
                 )
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Text(
-                text = "Character Information",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp),
-                textAlign = TextAlign.Start
-            )
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                CharacterInfoItem(label = "Name", value = character.name)
-                CharacterInfoItem(label = "Ki", value = if (character.ki.isNotEmpty()) "${character.ki}+" else "Unknown")
-                CharacterInfoItem(label = "Race", value = character.race)
-                CharacterInfoItem(label = "Gender", value = character.gender.displayName)
-                CharacterInfoItem(label = "Affiliation", value = character.affiliation)
-                CharacterInfoItem(label = "Planet of Origin", value = "Earth")
-            }
-
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(40.dp))
         }
 
         item {
-            CharacterTransformationsSection(transformations = character.transformations)
+            CharacterInformationSection(
+                character = character
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
         }
+
+        item {
+            CharacterDescriptionSection(
+                description = character.description
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+
+        item {
+            if (character.transformations.isNotEmpty()) {
+                CharacterTransformationsSection(
+                    transformations = character.transformations
+                )
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+    }
+}
+
+@Composable
+private fun CharacterInformationSection(
+    character: Character,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        SectionTitle(text = stringResource(Res.string.characterDetail_characterInformation_title))
+
+        CharacterInfoItem(
+            label = stringResource(Res.string.characterDetail_name),
+            value = character.name
+        )
+        CharacterInfoItem(
+            label = stringResource(Res.string.characterDetail_ki),
+            value = if (character.ki.isNotEmpty()) "${character.ki}+" else stringResource(Res.string.unknown)
+        )
+        CharacterInfoItem(
+            label = stringResource(Res.string.characterDetail_maxKi),
+            value = character.maxKi
+        )
+        CharacterInfoItem(
+            label = stringResource(Res.string.characterDetail_race),
+            value = character.race
+        )
+        CharacterInfoItem(
+            label = stringResource(Res.string.characterDetail_gender),
+            value = character.gender.localized()
+        )
+        CharacterInfoItem(
+            label = stringResource(Res.string.characterDetail_affiliation),
+            value = character.affiliation
+        )
+        CharacterInfoItem(
+            label = stringResource(Res.string.characterDetail_originPlanet),
+            value = character.originPlanet?.name ?: stringResource(Res.string.unknown)
+        )
     }
 }
 
@@ -159,14 +227,14 @@ private fun CharacterInfoItem(
     value: String,
     modifier: Modifier = Modifier
 ) {
-    Column (
+    Column(
         modifier = modifier.fillMaxWidth()
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
             Text(
                 text = label,
                 fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Light,
                 color = MaterialTheme.colorScheme.onTertiary
             )
 
@@ -186,6 +254,28 @@ private fun CharacterInfoItem(
 }
 
 @Composable
+private fun CharacterDescriptionSection(
+    description: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        SectionTitle(text = stringResource(Res.string.characterDetail_description_title))
+
+        Text(
+            text = description,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.Start
+        )
+    }
+}
+
+@Composable
 private fun CharacterTransformationsSection(
     transformations: List<CharacterTransformation>
 ) {
@@ -196,6 +286,8 @@ private fun CharacterTransformationsSection(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+        SectionTitle(text = stringResource(Res.string.characterDetail_transformations_title))
+
         chunked.forEach { rowItems ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
