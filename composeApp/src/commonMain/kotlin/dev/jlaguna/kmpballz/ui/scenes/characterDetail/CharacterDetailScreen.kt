@@ -293,7 +293,7 @@ private fun CharacterTransformationsSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         SectionTitle(text = stringResource(Res.string.characterDetail_transformations_title))
