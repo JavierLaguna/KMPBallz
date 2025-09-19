@@ -9,6 +9,7 @@
     <string name="unknown">Desconocido</string>
     <string name="male">Hombre</string>
     <string name="female">Mujer</string>
+    <string name="ok">OK</string>
 
     <!-- TabBar -->
     <string name="tabBar_characters">Personajes</string>

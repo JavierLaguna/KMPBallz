@@ -9,6 +9,7 @@
     <string name="unknown">Unknown</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="ok">OK</string>
 
     <!-- TabBar -->
     <string name="tabBar_characters">Characters</string>

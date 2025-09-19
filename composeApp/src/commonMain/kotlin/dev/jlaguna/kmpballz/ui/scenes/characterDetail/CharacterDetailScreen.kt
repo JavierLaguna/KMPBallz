@@ -43,6 +43,7 @@ import dev.jlaguna.kmpballz.business.models.CharacterTransformation
 import dev.jlaguna.kmpballz.ui.components.BackTopBar
 import dev.jlaguna.kmpballz.ui.components.CharacterCard
 import dev.jlaguna.kmpballz.ui.components.Screen
+import dev.jlaguna.kmpballz.ui.components.TransformationAlertDialog
 import dev.jlaguna.kmpballz.utils.extractColorFromImageUrl
 import kmpballz.composeapp.generated.resources.Res
 import kmpballz.composeapp.generated.resources.characterDetail_affiliation
@@ -279,7 +280,16 @@ private fun CharacterDescriptionSection(
 private fun CharacterTransformationsSection(
     transformations: List<CharacterTransformation>
 ) {
+    var dialogTransformation by remember { mutableStateOf<CharacterTransformation?>(null) }
     val chunked = transformations.chunked(2)
+
+    dialogTransformation?.let {
+        TransformationAlertDialog(
+            transformation = it,
+            onDismiss = { dialogTransformation = null }
+        )
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -298,6 +308,9 @@ private fun CharacterTransformationsSection(
                         CharacterCard(
                             characterName = transformation.name,
                             characterImage = transformation.image,
+                            onClick = {
+                                dialogTransformation = transformation
+                            }
                         )
                     }
                 }
