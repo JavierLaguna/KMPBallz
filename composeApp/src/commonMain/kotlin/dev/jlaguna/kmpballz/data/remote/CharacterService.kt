@@ -12,13 +12,13 @@ class CharacterService(
 
     suspend fun fetchCharacters(page: Int): CharactersPageResponse {
         return client
-            .get("/characters?page=$page")
+            .get("/api/characters?page=$page")
             .body<CharactersPageResponse>()
     }
 
     suspend fun fetchCharacterById(id: Int): CharacterResponse {
         return client
-            .get("/characters/$id")
+            .get("/api/characters/$id")
             .body<CharacterResponse>()
     }
 }

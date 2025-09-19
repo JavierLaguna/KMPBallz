@@ -36,7 +36,7 @@ val dataModule = module {
             install(DefaultRequest) {
                 url {
                     protocol = URLProtocol.HTTPS
-                    host = "dragonball-api.com/api"
+                    host = "dragonball-api.com"
                 }
             }
         }
