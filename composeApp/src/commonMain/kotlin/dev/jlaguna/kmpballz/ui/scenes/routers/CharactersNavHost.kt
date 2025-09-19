@@ -1,6 +1,7 @@
-package dev.jlaguna.kmpballz.ui.scenes
+package dev.jlaguna.kmpballz.ui.scenes.routers
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -22,7 +23,9 @@ private object Routes {
 
 @OptIn(KoinExperimentalAPI::class)
 @Composable
-fun Navigation() {
+fun CharactersNavHost(
+    modifier: Modifier = Modifier
+) {
     val navController = rememberNavController()
 
     NavHost(

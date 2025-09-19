@@ -10,6 +10,10 @@
     <string name="male">Hombre</string>
     <string name="female">Mujer</string>
 
+    <!-- TabBar -->
+    <string name="tabBar_characters">Personajes</string>
+    <string name="tabBar_planets">Planetas</string>
+
     <!-- Error Screen -->
     <string name="errorScreen_title">Ups! Ha ocurrido un error.</string>
     <string name="errorScreen_generalDescription">Algo ha fallado. Por favor, inténtalo de nuevo.</string>
