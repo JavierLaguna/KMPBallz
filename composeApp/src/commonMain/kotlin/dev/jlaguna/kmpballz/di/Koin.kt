@@ -1,5 +1,7 @@
 package dev.jlaguna.kmpballz.di
 
+import dev.jlaguna.kmpballz.business.useCases.GetCharacterDetailUseCase
+import dev.jlaguna.kmpballz.business.useCases.GetCharacterDetailUseCaseDefault
 import dev.jlaguna.kmpballz.business.useCases.GetCharactersUseCase
 import dev.jlaguna.kmpballz.business.useCases.GetCharactersUseCaseDefault
 import dev.jlaguna.kmpballz.data.remote.CharacterService
@@ -49,6 +51,7 @@ val dataModule = module {
 
 val useCasesModule = module {
     factory<GetCharactersUseCase> { GetCharactersUseCaseDefault(get()) }
+    factory<GetCharacterDetailUseCase> { GetCharacterDetailUseCaseDefault(get()) }
 }
 
 val viewModelsModule = module {

@@ -21,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,13 +36,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import dev.jlaguna.kmpballz.business.models.Character
 import dev.jlaguna.kmpballz.business.models.CharacterTransformation
+import dev.jlaguna.kmpballz.ui.UIState
 import dev.jlaguna.kmpballz.ui.components.BackTopBar
 import dev.jlaguna.kmpballz.ui.components.CharacterCard
+import dev.jlaguna.kmpballz.ui.components.ErrorView
+import dev.jlaguna.kmpballz.ui.components.LoadingIndicator
 import dev.jlaguna.kmpballz.ui.components.Screen
 import dev.jlaguna.kmpballz.ui.components.TransformationAlertDialog
+import dev.jlaguna.kmpballz.ui.scenes.charactersList.CharactersListContract
 import dev.jlaguna.kmpballz.utils.extractColorFromImageUrl
 import kmpballz.composeapp.generated.resources.Res
 import kmpballz.composeapp.generated.resources.characterDetail_affiliation
@@ -62,17 +66,17 @@ import org.jetbrains.compose.resources.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterDetailScreen(
-    vm: CharacterDetailViewModel,
+    viewModel: CharacterDetailViewModel,
     onBack: () -> Unit
 ) {
-    val state by vm.state.collectAsState()
+    val characterState by viewModel.character.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     Screen {
         Scaffold(
             topBar = {
                 BackTopBar(
-                    title = state.character?.name ?: "",
+                    title = characterState.data?.name ?: "",
                     scrollBehavior = scrollBehavior,
                     onBack = onBack
                 )
@@ -80,17 +84,25 @@ fun CharacterDetailScreen(
             modifier = Modifier
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
         ) { padding ->
-            // TODO: JLI - Fix
-//            LoadingIndicator(
-//                enabled = state.isLoading,
-//                modifier = Modifier.padding(padding)
-//            )
+            if (characterState.state == UIState.State.ERROR) {
+                ErrorView(
+                    error = characterState.error,
+                    onRetryClick = {
+                        viewModel.handleEvent(CharacterDetailContract.Event.OnPressRetry)
+                    })
 
-            state.character?.let { character ->
-                CharacterDetail(
-                    character,
-                    modifier = Modifier.padding(top = padding.calculateTopPadding())
+            } else {
+                LoadingIndicator(
+                    enabled = characterState.isLoading,
+                    modifier = Modifier.padding(padding)
                 )
+
+                characterState.data?.let { character ->
+                    CharacterDetail(
+                        character,
+                        modifier = Modifier.padding(top = padding.calculateTopPadding())
+                    )
+                }
             }
         }
     }

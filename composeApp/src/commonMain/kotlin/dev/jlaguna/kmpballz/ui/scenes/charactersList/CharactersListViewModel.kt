@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-
 class CharactersListViewModel : ViewModel(), KoinComponent {
 
     private val getCharactersUseCase: GetCharactersUseCase by inject()
@@ -32,7 +31,7 @@ class CharactersListViewModel : ViewModel(), KoinComponent {
             characters.value = characters.value.setLoading()
 
             try {
-                val newCharacters = getCharactersUseCase.getCharacters()
+                val newCharacters = getCharactersUseCase.execute()
 
                 if (newCharacters.isNotEmpty()) {
                     val updatedCharacters = currentCharacters + newCharacters

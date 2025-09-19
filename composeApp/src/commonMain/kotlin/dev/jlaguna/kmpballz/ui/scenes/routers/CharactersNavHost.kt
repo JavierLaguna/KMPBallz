@@ -44,7 +44,7 @@ fun CharactersNavHost(
         composable<Routes.CharacterDetail> { backStackEntry ->
             val route = backStackEntry.toRoute<Routes.CharacterDetail>()
             CharacterDetailScreen(
-                vm = koinViewModel(parameters = { parametersOf(route.characterId) }),
+                viewModel = koinViewModel(parameters = { parametersOf(route.characterId) }),
                 onBack = { navController.popBackStack() }
             )
         }

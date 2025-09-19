@@ -3,7 +3,8 @@ package dev.jlaguna.kmpballz.ui.scenes.characterDetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.jlaguna.kmpballz.business.models.Character
-import dev.jlaguna.kmpballz.data.repositories.CharactersRepository
+import dev.jlaguna.kmpballz.business.useCases.GetCharacterDetailUseCase
+import dev.jlaguna.kmpballz.ui.UIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -13,21 +14,31 @@ class CharacterDetailViewModel(
     private val characterId: Int
 ) : ViewModel(), KoinComponent {
 
-    data class UiState(
-        val isLoading: Boolean = false,
-        val character: Character? = null
-    )
+    private val getCharacterDetailUseCase: GetCharacterDetailUseCase by inject()
 
-    private val repository: CharactersRepository by inject()
-
-    var state = MutableStateFlow(UiState())
+    var character = MutableStateFlow(UIState<Character>())
         private set
 
     init {
+        getCharacter()
+    }
+
+    fun handleEvent(event: CharacterDetailContract.Event) {
+        when (event) {
+            is CharacterDetailContract.Event.OnPressRetry -> getCharacter()
+        }
+    }
+
+    private fun getCharacter() {
         viewModelScope.launch {
-            state.value = state.value.copy(isLoading = true)
-            val character = repository.fetchCharacterById(characterId)
-            state.value = UiState(false, character)
+            character.value = character.value.setLoading()
+
+            try {
+                val characterDetail = getCharacterDetailUseCase.execute(characterId)
+                character.value = character.value.setPopulated(characterDetail)
+            } catch (e: Exception) {
+                character.value = character.value.setError(e)
+            }
         }
     }
 }
