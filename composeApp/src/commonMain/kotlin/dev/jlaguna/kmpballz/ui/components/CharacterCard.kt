@@ -27,9 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import coil3.compose.AsyncImagePainter
 import coil3.compose.LocalPlatformContext
-import coil3.compose.rememberAsyncImagePainter
 import coil3.request.ImageRequest
 import dev.jlaguna.kmpballz.utils.extractColorFromImageUrl
 
