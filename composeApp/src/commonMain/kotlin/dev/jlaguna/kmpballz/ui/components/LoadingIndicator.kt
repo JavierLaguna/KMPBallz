@@ -34,6 +34,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun LoadingIndicator(
     enabled: Boolean,
+    showText: Boolean = true,
     loadingText: String = stringResource(Res.string.loading),
     animationType: AnimationType = AnimationType.entries.random(),
     modifier: Modifier = Modifier,
@@ -54,12 +55,14 @@ fun LoadingIndicator(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Text(
-                text = loadingText,
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-            )
+            if (showText) {
+                Text(
+                    text = loadingText,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                )
+            }
         }
     }
 }

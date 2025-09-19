@@ -27,6 +27,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import coil3.compose.AsyncImagePainter
+import coil3.compose.LocalPlatformContext
+import coil3.compose.rememberAsyncImagePainter
+import coil3.request.ImageRequest
 import dev.jlaguna.kmpballz.utils.extractColorFromImageUrl
 
 @Composable
@@ -97,11 +101,30 @@ private fun CharacterImage(
     characterName: String,
     modifier: Modifier = Modifier
 ) {
-    AsyncImage(
-        model = imageUrl,
-        contentDescription = characterName,
+    var isLoading by remember { mutableStateOf(true) }
+
+    Box(
         modifier = modifier.fillMaxSize(),
-        contentScale = ContentScale.Crop,
-        alignment = Alignment.TopCenter
-    )
+        contentAlignment = Alignment.Center
+    ) {
+        LoadingIndicator(
+            enabled = isLoading,
+            showText = false
+        )
+
+        AsyncImage(
+            model = ImageRequest.Builder(LocalPlatformContext.current)
+                .data(imageUrl)
+                .listener(
+                    onSuccess = { _, _ ->
+                        isLoading = false
+                    }
+                )
+                .build(),
+            contentDescription = characterName,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            alignment = Alignment.TopCenter
+        )
+    }
 }
