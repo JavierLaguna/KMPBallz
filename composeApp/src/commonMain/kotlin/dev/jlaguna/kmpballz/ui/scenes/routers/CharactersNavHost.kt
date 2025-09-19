@@ -30,7 +30,8 @@ fun CharactersNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = Routes.CharactersList
+        startDestination = Routes.CharactersList,
+        modifier = modifier
     ) {
         composable<Routes.CharactersList> {
             CharactersListScreen(

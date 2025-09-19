@@ -1,6 +1,5 @@
 package dev.jlaguna.kmpballz.ui.scenes.mainTabBar
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Group
@@ -58,13 +57,18 @@ fun MainTabBar() {
         }
     ) { padding ->
         when (selectedTab) {
-            BottomTab.Characters -> CharactersNavHost(Modifier.padding(padding))
-            BottomTab.Planets -> PlanetsScreen(padding)
+            BottomTab.Characters -> CharactersNavHost(
+                Modifier.padding(bottom = padding.calculateBottomPadding())
+            )
+
+            BottomTab.Planets -> PlanetsScreen(
+                Modifier.padding(bottom = padding.calculateBottomPadding())
+            )
         }
     }
 }
 
 @Composable
-private fun PlanetsScreen(padding: PaddingValues) {
-    Text("Planets screen", modifier = Modifier.padding(padding))
+private fun PlanetsScreen(modifier: Modifier = Modifier) {
+    Text("Planets screen", modifier = modifier)
 }

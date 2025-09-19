@@ -88,7 +88,7 @@ fun CharacterDetailScreen(
             state.character?.let { character ->
                 CharacterDetail(
                     character,
-                    modifier = Modifier.padding(padding)
+                    modifier = Modifier.padding(top = padding.calculateTopPadding())
                 )
             }
         }
